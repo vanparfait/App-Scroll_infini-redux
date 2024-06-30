@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import usePhotos from "../hooks/usePhotos";
 
 const List = () => {
+  const [qwery, setQwery] = useState("random");
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const photosApiData = usePhotos(qwery, pageNumber);
+  console.log(photosApiData);
   return (
     <>
       <h1 className="text-4xl">Unsplash Clone.</h1>
