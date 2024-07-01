@@ -11,6 +11,14 @@ const usePhotos = (querySearch, pageIndex) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (photos.length !== 0 && maxpages !== 0) {
+      setPhotos([]);
+      setMaxpages(0);
+    }
+  }, [querySearch]);
+
+  useEffect(() => {
+    setLoading(true);
     fetch(
       `https://api.unsplash.com/search/photos?page=${pageIndex}&per_page=30&query=${querySearch}&client_id=${
         import.meta.env.VITE_UNSPLASH_KEY
@@ -26,6 +34,13 @@ const usePhotos = (querySearch, pageIndex) => {
         setPhotos((state) => [...state, ...data.results]);
         setMaxpages(data.total_pages);
         setLoading(false);
+      })
+      .catch((err) => {
+        setError({
+          msg: err.message,
+          state: true,
+        }),
+          setLoading(false);
       });
   }, [querySearch, pageIndex]);
 
