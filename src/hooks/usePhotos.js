@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { nanoid } from "nanoid";
 
 const usePhotos = (querySearch, pageIndex) => {
   const [error, setError] = useState({
@@ -21,7 +22,11 @@ const usePhotos = (querySearch, pageIndex) => {
 
         return response.json();
       })
-      .then((data1) => console.log(data1));
+      .then((data) => {
+        setPhotos(data.results);
+        setMaxpages(data.total_pages);
+        setLoading(false);
+      });
   });
 
   return { error, photos, maxpages, loading };
