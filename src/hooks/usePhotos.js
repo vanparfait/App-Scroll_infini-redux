@@ -23,11 +23,11 @@ const usePhotos = (querySearch, pageIndex) => {
         return response.json();
       })
       .then((data) => {
-        setPhotos(data.results);
+        setPhotos((state) => [...state, ...data.results]);
         setMaxpages(data.total_pages);
         setLoading(false);
       });
-  });
+  }, [querySearch, pageIndex]);
 
   return { error, photos, maxpages, loading };
 };
