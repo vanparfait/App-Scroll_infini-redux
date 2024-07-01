@@ -25,8 +25,8 @@ const usePhotos = (querySearch, pageIndex) => {
       }`
     )
       .then((response) => {
-        // if (!response.ok)
-        //   throw new Error(`${response.status} Error, something went wrong`);
+        if (!response.ok)
+          throw new Error(`${response.status} Error, something went wrong`);
 
         return response.json();
       })
